@@ -1,34 +1,31 @@
-name: Scan Pull Request Changes Using Bandit
+name: Show PR Changed Files
 
 on:
   pull_request:
-    # Trigger the workflow if Python files are changed
 
 jobs:
-  scan:
+  list-changes:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout pull request branch
+      - name: Checkout the pull request branch with minimal history
         uses: actions/checkout@v4
         with:
+          fetch-depth: 2  # Fetch minimal history for diffing
           ref: ${{ github.head_ref }}  # Check out the pull request branch
-          fetch-depth: 0  # Fetch all history for proper diffing
 
       - name: Fetch base branch
         run: git fetch origin ${{ github.event.pull_request.base.ref }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      # - name: Install Bandit
-      #   run: pip install bandit
-
-      - name: Identify the Base Commit
-        id: base-commit
+      - name: List changed files
         run: |
-          BASE_COMMIT_SHA=$(git merge-base origin/${{ github.event.pull_request.base.ref }} HEAD)
-          echo "Base commit: $BASE_COMMIT_SHA"
-          echo "BASE_COMMIT_SHA=$BASE_COMMIT_SHA" >> $GITHUB_ENV
+          BASE_COMMIT=$(git merge-base HEAD origin/${{ github.event.pull_request.base.ref }})
+          echo "Base commit: $BASE_COMMIT"
+          CHANGED_FILES=$(git diff --name-only $BASE_COMMIT HEAD)
+          echo "Changed files in this PR:"
+          echo "$CHANGED_FILES"
+          echo "##[group]Changed files:"
+          for file in $CHANGED_FILES; do
+            echo "$file"
+          done
+          echo "##[endgroup]"
