@@ -1,0 +1,52 @@
+name: Scan Pull Request Changes Using Bandit
+
+on:
+  pull_request:
+    # Trigger the workflow if Python files are changed
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout pull request branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}  # Check out the pull request branch
+           # Fetch all history for proper diffing
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Bandit
+        run: pip install bandit
+
+      - name: Identify the Base Commit
+        id: base-commit
+        run: |
+          echo ${{github.event.pull_request.base.ref}}
+          # # git fetch origin ${{ github.event.pull_request.base.ref }}
+          # BASE_COMMIT_SHA=$(git merge-base origin/${{ github.event.pull_request.base.ref }} HEAD)
+          # echo "Base commit: $BASE_COMMIT_SHA"
+          # echo "BASE_COMMIT_SHA=$BASE_COMMIT_SHA" >> $GITHUB_ENV
+
+      # - name: Get Changed Files
+      #   id: changed-files
+      #   run: |
+      #     CHANGED_FILES=$(git diff --name-only ${{ env.BASE_COMMIT_SHA }} HEAD | grep '.py$')
+      #     echo "Changed Python files: $CHANGED_FILES"
+      #     echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+
+      # - name: Display Changed Files
+      #   run: |
+      #     echo "The following Python files have changed in this pull request:"
+      #     echo "${{ env.CHANGED_FILES }}"
+
+      # - name: Run Bandit on Changed Files
+      #   run: |
+      #     if [ -z "${{ env.CHANGED_FILES }}" ]; then
+      #       echo "No Python files changed. Skipping Bandit scan."
+      #     else
+           
