@@ -8,6 +8,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+     - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Bandit
+        run: |
+          pip install bandit
       - name: Checkout the pull request branch with minimal history
         uses: actions/checkout@v4
         with:
@@ -27,5 +35,6 @@ jobs:
           echo "##[group]Changed files:"
           for file in $CHANGED_FILES; do
             echo "$file"
+            bandit -r $file
           done
           echo "##[endgroup]"
