@@ -36,6 +36,12 @@ jobs:
           echo "##[group]Changed files:"
           for file in $CHANGED_FILES; do
             echo "$file"
-            bandit -r $file
+            bandit -r $file -f json -o result.txt
           done
           echo "##[endgroup]"
+          
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: result.txt
