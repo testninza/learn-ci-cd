@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-     - name: Set up Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
@@ -16,10 +16,11 @@ jobs:
       - name: Install Bandit
         run: |
           pip install bandit
+
       - name: Checkout the pull request branch with minimal history
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # Fetch minimal history for diffing
+          fetch-depth: 1  # Fetch minimal history for diffing
           ref: ${{ github.head_ref }}  # Check out the pull request branch
 
       - name: Fetch base branch
