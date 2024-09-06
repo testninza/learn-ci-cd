@@ -1,0 +1,24 @@
+{
+  "name": "vulnerable-app",
+  "version": "1.0.0",
+  "description": "A sample app with outdated and vulnerable packages",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "4.16.0",  // Outdated, vulnerable to multiple vulnerabilities including prototype pollution
+    "lodash": "4.17.11",  // Vulnerable to Prototype Pollution (CVE-2018-16487)
+    "jquery": "3.4.1",    // Vulnerable to Cross-Site Scripting (XSS) issues (CVE-2020-11022)
+    "moment": "2.18.1",   // Vulnerable to Regular Expression Denial of Service (ReDoS) (CVE-2017-18214)
+    "marked": "0.3.6",    // Vulnerable to Remote Code Execution (CVE-2017-1000427)
+    "ws": "3.3.3",        // Vulnerable to DoS and possible remote memory exposure (CVE-2018-18248)
+    "mongodb": "2.2.33"   // Vulnerable to several security issues, including Denial of Service (DoS)
+  },
+  "devDependencies": {
+    "gulp": "3.9.1",      // Vulnerable to Command Injection (CVE-2018-16472)
+    "webpack": "3.5.5"    // Outdated and has security vulnerabilities, including Prototype Pollution
+  },
+  "author": "Your Name",
+  "license": "ISC"
+}
