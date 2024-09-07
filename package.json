@@ -9,7 +9,7 @@
   "dependencies": {
     "express": "4.16.0",  // Outdated, vulnerable to multiple vulnerabilities including prototype pollution
     "lodash": "4.17.12",  // Vulnerable to Prototype Pollution (CVE-2018-16487)
-    "jquery": "3.4.1",    // Vulnerable to Cross-Site Scripting (XSS) issues (CVE-2020-11022)
+    "jquery": "3.5.0",    // Vulnerable to Cross-Site Scripting (XSS) issues (CVE-2020-11022)
     "moment": "2.18.1",   // Vulnerable to Regular Expression Denial of Service (ReDoS) (CVE-2017-18214)
     "marked": "0.3.6",    // Vulnerable to Remote Code Execution (CVE-2017-1000427)
     "ws": "3.3.3",        // Vulnerable to DoS and possible remote memory exposure (CVE-2018-18248)
