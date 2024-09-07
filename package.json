@@ -13,7 +13,7 @@
     "moment": "2.18.1",   // Vulnerable to Regular Expression Denial of Service (ReDoS) (CVE-2017-18214)
     "marked": "0.3.6",    // Vulnerable to Remote Code Execution (CVE-2017-1000427)
     "ws": "3.3.3",        // Vulnerable to DoS and possible remote memory exposure (CVE-2018-18248)
-    "mongodb": "2.2.33"   // Vulnerable to several security issues, including Denial of Service (DoS)
+    "mongodb": "2.2.30"   // Vulnerable to several security issues, including Denial of Service (DoS)
   },
   "devDependencies": {
     "gulp": "3.9.1",      // Vulnerable to Command Injection (CVE-2018-16472)
