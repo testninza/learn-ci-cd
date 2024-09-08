@@ -1,0 +1,28 @@
+name: SAST SCAN USING SEMGREP
+on: [push,pull_request]
+jobs:
+  CODE-SCANNING-USING-SEMGREP:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: installing dependecies
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' 
+      - run: pip install semgrep
+
+      - name: scannning codebase
+        run: |
+           semgrep semgrep --config "p/javascript" 
+      
+          
+        
+
+   
+
+  
+  
+  
