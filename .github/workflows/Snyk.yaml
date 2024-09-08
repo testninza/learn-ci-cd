@@ -20,7 +20,7 @@ jobs:
         run: npm install
 
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@v3 # Updated to the latest stable version
+        uses: snyk/actions/node@master # Updated to the latest stable version
         continue-on-error: true # Ensure the workflow continues even if vulnerabilities are found
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
