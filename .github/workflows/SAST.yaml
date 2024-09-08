@@ -16,7 +16,7 @@ jobs:
 
       - name: scannning codebase
         run: |
-           semgrep --config "p/javascript" --no-suppress-errors
+           semgrep --config "p/javascript" --error
       
           
         
