@@ -16,7 +16,14 @@ jobs:
 
       - name: scannning codebase
         run: |
-           semgrep --config "p/javascript" --error
+           semgrep --config "p/javascript" --error  --sarif semgrep_vul.sarif
+           
+      - name: Upload SARIF results to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3 # Updated to v3
+        with:
+          sarif_file: semgrep_vul.sarif
+        if: always()
+
       
           
         
