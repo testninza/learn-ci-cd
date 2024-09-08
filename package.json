@@ -4,11 +4,11 @@
   "description": "A Node.js app with different vulnerable packages",
   "main": "index.js",
   "dependencies": {
-    "mongoose": "5.7.5",
-    "handlebars": "4.0.12",
-    "marked": "0.3.5",
-    "debug": "2.6.8",
-    "npm": "6.13.4"
+    "mongoose": "5.13.20",
+    "handlebars": "4.7.7",
+    "marked": "4.0.10",
+    "debug": "2.6.9",
+    "npm": "6.14.6"
   },
   "scripts": {
     "start": "node index.js"
