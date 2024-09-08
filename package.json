@@ -1,14 +1,14 @@
 {
   "name": "insecure-app",
-  "version": "1.0.0",
+  "version": "9.0",
   "description": "A Node.js app with different vulnerable packages",
   "main": "index.js",
   "dependencies": {
-    "mongoose": "5.7.5",
-    "handlebars": "4.0.12",
-    "marked": "0.3.5",
-    "debug": "2.6.8",
-    "npm": "6.13.4"
+    "express": "4.17.1",
+    "lodash": "4.17.15",
+    "async": "2.6.3",
+    "request": "2.88.2",
+    "jsonwebtoken": "8.5.1"
   },
   "scripts": {
     "start": "node index.js"
