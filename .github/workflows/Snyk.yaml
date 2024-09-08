@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main # Adjust to the branch you want to trigger this workflow
+  pull_request:
+    branches:
+      - main
 
 jobs:
   security:
