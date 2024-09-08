@@ -16,7 +16,7 @@ jobs:
 
       - name: scannning codebase
         run: |
-           semgrep  --config "p/javascript" 
+           semgrep ci
       
           
         
