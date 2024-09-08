@@ -5,6 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+
+      - name: files
+        run:  ls
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         env:
