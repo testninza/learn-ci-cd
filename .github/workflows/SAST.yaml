@@ -1,35 +1,26 @@
 name: SAST SCAN USING SEMGREP
-on: [push,pull_request]
+on: [push, pull_request]
 jobs:
   CODE-SCANNING-USING-SEMGREP:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: installing dependecies
+      - name: Set Up Python 3.10
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10' 
-      - run: pip install semgrep
+          python-version: '3.10'
 
-      - name: scannning codebase
-        run: |
-           semgrep --config "p/javascript" --error  --sarif semgrep_vul.sarif
-           
-      - name: Upload SARIF results to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v3 # Updated to v3
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Scan Codebase
+        run: semgrep --config "p/javascript" --error --sarif semgrep_vul.sarif
+
+      - name: Upload SARIF Results to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: semgrep_vul.sarif
         if: always()
-
-      
-          
-        
-
-   
-
-  
-  
-  
