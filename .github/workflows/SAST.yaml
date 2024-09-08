@@ -3,6 +3,9 @@ on: [push, pull_request]
 jobs:
   CODE-SCANNING-USING-SEMGREP:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
 
     steps:
       - name: Checkout Code
