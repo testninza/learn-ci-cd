@@ -1,4 +1,4 @@
-name: SAST SCANNER
+name: Composition SAST SCANNER
 
 on: 
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  SAST-USING-SNYK:
+  SCA-USING-SNYK:
     runs-on: ubuntu-latest
     permissions:
       contents: read
