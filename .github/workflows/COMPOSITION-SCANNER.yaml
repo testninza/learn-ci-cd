@@ -3,18 +3,40 @@ name: Composition SAST SCANNER
 on: 
   push:
     branches:
-      - main # Adjust to the branch you want to trigger this workflow
+      - main
   pull_request:
     branches:
       - main
 
 jobs:
+  # This job determines whether files in specific folders have changed
+  FILTER_FILES:
+    runs-on: ubuntu-latest
+    outputs:
+      snyk_triggered: ${{ steps.changes.outputs.dependencies }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Filter changes
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            dependencies:
+              - 'package.json'
+              - 'package-lock.json'
+              - 'pom.xml'
+              - 'requirements.txt'
+
+  # Snyk will run only if the dependency files changed
   SCA-USING-SNYK:
+    needs: FILTER_FILES
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      security-events: write # Required for Code Scanning alerts
-
+      security-events: write
+    if: needs.FILTER_FILES.outputs.snyk_triggered == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -23,24 +45,23 @@ jobs:
         run: npm install
 
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master # Updated to the latest stable version
-        
+        uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --sarif-file-output=snyk.sarif
 
       - name: Upload SARIF results to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v3 # Updated to v3
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk.sarif
 
+  # Semgrep will always run on every push and pull request
   CODE-SCAN-SEMGREP:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       security-events: write
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -57,7 +78,7 @@ jobs:
         run: semgrep --config "p/javascript" --error --sarif -o semgrep_vul.sarif
 
       - name: Upload SARIF results to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v3 # Updated to v3
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: semgrep_vul.sarif
         if: always()
