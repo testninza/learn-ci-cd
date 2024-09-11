@@ -1,0 +1,63 @@
+name: SAST SCANNER
+
+on: 
+  push:
+    branches:
+      - main # Adjust to the branch you want to trigger this workflow
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  SAST-USING-SNYK:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write # Required for Code Scanning alerts
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master # Updated to the latest stable version
+        continue-on-error: true # Ensure the workflow continues even if vulnerabilities are found
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk.sarif
+
+      - name: Upload SARIF results to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3 # Updated to v3
+        with:
+          sarif_file: snyk.sarif
+
+  CODE-SCAN-SEMGREP:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Scan Codebase
+        run: semgrep --config "p/javascript" --error --sarif -o semgrep_vul.sarif
+
+      - name: Upload SARIF results to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3 # Updated to v3
+        with:
+          sarif_file: semgrep_vul.sarif
+        if: always()
