@@ -1,0 +1,31 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        task: [build, test, deploy]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Execute task
+        run: |
+          if [ "${{ matrix.task }}" == "build" ]; then
+            echo "Running build stage"
+            npm install
+            npm run build
+          elif [ "${{ matrix.task }}" == "test" ]; then
+            echo "Running test stage"
+            npm test
+          elif [ "${{ matrix.task }}" == "deploy" ]; then
+            echo "Running deploy stage"
+            npm run deploy
+          fi
