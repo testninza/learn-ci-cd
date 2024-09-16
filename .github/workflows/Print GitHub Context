@@ -1,0 +1,15 @@
+name: Print GitHub Context
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  print-context:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Print the full GitHub context as JSON
+      - name: Print GitHub Context
+        run: |
+          echo '${{ toJSON(github) }}'
