@@ -1,9 +1,7 @@
 name: Print GitHub Context
 
 on:
-  push:
-    branches:
-      - main
+  pull_request
 
 jobs:
   print-context:
