@@ -4,7 +4,7 @@
   "description": "A Node.js app with different vulnerable packages",
   "main": "index.js",
   "dependencies": {
-    "mongoose": "5.7.5",
+    "mongoose": "8.6.3",
     "node-fetch": "2.6.7",
     "sanitize-html": "1.20.0",
     "jsonwebtoken": "8.5.1"
