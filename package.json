@@ -4,6 +4,7 @@
   "description": "A Node.js app with different vulnerable packages",
   "main": "index.js",
   "dependencies": {
+    "express": "4.16.0",
     "mongoose": "5.7.5",
     "node-fetch": "2.6.7",
     "sanitize-html": "1.20.0",
