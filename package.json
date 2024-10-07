@@ -7,7 +7,7 @@
     "express": "4.16.0",
     "mongoose": "5.7.5",
     "node-fetch": "2.6.7",
-    "sanitize-html": "1.20.0",
+    "sanitize-html": "2.13.1",
     "jsonwebtoken": "8.5.1"
   },
   "scripts": {
