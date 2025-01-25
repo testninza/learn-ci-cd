@@ -1,18 +1,28 @@
 {
-  "name": "dd-app",
-  "version": "3.0.0",
-  "description": "A Node.js app with different vulnerable packages",
+  "name": "prorrject",
+  "version": "1.0.0",
   "main": "index.js",
-  "dependencies": {
-    "express": "4.16.0",
-    "mongoose": "5.7.5",
-    "node-fetch": "2.6.7",
-    "sanitize-html": "1.20.0",
-    "jsonwebtoken": "8.5.1"
-  },
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "author": "Your Name",
-  "license": "MIT"
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.17.0",
+    "mongoose": "^5.10.9",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
+    "axios": "^0.21.1",
+    "morgan": "^1.10.0",
+    "cookie-parser": "^1.4.5",
+    "validator": "^13.6.0",
+    "helmet": "^4.6.0",
+    "winston": "^3.3.3",
+    "nodemon": "^2.0.7",
+    "express-rate-limit": "^5.1.3"
+  }
 }
